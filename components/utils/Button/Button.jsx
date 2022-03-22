@@ -1,8 +1,9 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
-function Button({ title, width, marginBottom, primary }) {
+function Button({ title, width, marginBottom, primary, onClick }) {
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.7}
       style={{
         width: width || "100%",
         marginBottom: marginBottom || 0,
@@ -13,17 +14,19 @@ function Button({ title, width, marginBottom, primary }) {
         borderWidth: 1,
         borderColor: "#77B6EA",
       }}
+      onPress={onClick}
     >
       <Text
         style={{
           color: primary ? "#fff" : "#333",
           fontWeight: "800",
           fontSize: 16,
+          fontFamily: "BOLD",
         }}
       >
         {title}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
