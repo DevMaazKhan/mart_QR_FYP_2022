@@ -11,7 +11,10 @@ function CustomerDashboardScreen() {
     <Container>
       <View style={styles.circleRight}></View>
       <View style={styles.container}>
-        <Input placeholder="Search ..." onChange={(text) => setQuery(text)} />
+        <Input
+          placeholder="Search Mart ..."
+          onChange={(text) => setQuery(text)}
+        />
 
         <MartList query={query} />
       </View>

@@ -109,6 +109,7 @@ function MartList({ query }) {
   return (
     <View style={{ marginTop: 40, height: 450 }}>
       <FlatList
+        bounces={false}
         showsVerticalScrollIndicator={false}
         data={mockData.filter((data) => data.martName.includes(query))}
         renderItem={({ item }) => <MartItem key={item.id} item={item} />}
