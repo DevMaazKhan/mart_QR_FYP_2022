@@ -45,7 +45,9 @@ function MartRegisterStepTwo() {
           <View style={styles.buttons}>
             <Button
               title="REGISTER"
-              onClick={() => navigation.navigate("MartLogin")}
+              onClick={() =>
+                navigation.navigate("MartLogin", { loggedIn: true })
+              }
               primary
             />
           </View>

@@ -3,6 +3,10 @@ export const COLORS = {
   SECONDARY: "#E8EEF2",
   WHITE: "#fff",
   BLACK: "#37393A",
+
+  ERROR: "#FF1B1C",
+  SUCCESS: "#23CE6B",
+  WARNING: "#F4AC32",
 };
 
 export const FONTS = {

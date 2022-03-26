@@ -1,19 +1,31 @@
+import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
-import { AvoidKeyboardLayout, Button, Container, Input } from "../components";
+  AvoidKeyboardLayout,
+  Button,
+  Container,
+  Input,
+  Toast,
+  useToast,
+} from "../components";
+import { ToastTypes } from "../components/utils/Toast/Toast";
 
-function MartLogin() {
+function MartLogin({ route }) {
+  const [toast, showToast] = useToast();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (route.params) {
+      if (route.params.loggedIn) {
+        showToast("You have registered successfully", ToastTypes.SUCCESS);
+      }
+    }
+  }, [route.params]);
 
   return (
     <AvoidKeyboardLayout>
+      <Toast msg={toast.msg} show={toast.show} type={toast.type} />
       <Container>
         <View style={styles.circleRight}></View>
         <View style={styles.container}>
