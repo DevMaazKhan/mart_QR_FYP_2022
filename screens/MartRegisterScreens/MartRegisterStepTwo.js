@@ -1,6 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet } from "react-native";
-import { Container, Input, Button } from "../../components";
+import {
+  Container,
+  Input,
+  Button,
+  AvoidKeyboardLayout,
+} from "../../components";
 import * as ImagePicker from "expo-image-picker";
 
 function MartRegisterStepTwo() {
@@ -18,33 +23,35 @@ function MartRegisterStepTwo() {
   }
 
   return (
-    <Container>
-      <View style={styles.circleRight}></View>
+    <AvoidKeyboardLayout>
+      <Container>
+        <View style={styles.circleRight}></View>
 
-      <View style={styles.container}>
-        <View style={styles.heading}>
-          <Text style={styles.mainHeading}>Step 02</Text>
-          <Text style={styles.secondHeading}>Enter your Mart details</Text>
+        <View style={styles.container}>
+          <View style={styles.heading}>
+            <Text style={styles.mainHeading}>Step 02</Text>
+            <Text style={styles.secondHeading}>Enter your Mart details</Text>
+          </View>
+
+          <View style={styles.inputs}>
+            <Input label="Mart Name" required />
+            <Input label="Mart Address" required />
+            <Input label="Email" required />
+            <Input label="Mart Cell #" required />
+
+            <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
+          </View>
+
+          <View style={styles.buttons}>
+            <Button
+              title="REGISTER"
+              onClick={() => navigation.navigate("MartLogin")}
+              primary
+            />
+          </View>
         </View>
-
-        <View style={styles.inputs}>
-          <Input label="Mart Name" required />
-          <Input label="Mart Address" required />
-          <Input label="Email" required />
-          <Input label="Mart Cell #" required />
-
-          <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
-        </View>
-
-        <View style={styles.buttons}>
-          <Button
-            title="REGISTER"
-            onClick={() => navigation.navigate("MartLogin")}
-            primary
-          />
-        </View>
-      </View>
-    </Container>
+      </Container>
+    </AvoidKeyboardLayout>
   );
 }
 
@@ -84,6 +91,7 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     justifyContent: "flex-end",
+    marginTop: 10,
   },
 });
 

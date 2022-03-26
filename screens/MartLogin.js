@@ -1,34 +1,43 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, Container, Input } from "../components";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
+import { AvoidKeyboardLayout, Button, Container, Input } from "../components";
 
 function MartLogin() {
   const navigation = useNavigation();
 
   return (
-    <Container>
-      <View style={styles.circleRight}></View>
-      <View style={styles.container}>
-        <View>
-          <Input label="Username" required />
-          <Input label="Password" required />
+    <AvoidKeyboardLayout>
+      <Container>
+        <View style={styles.circleRight}></View>
+        <View style={styles.container}>
+          <View>
+            <Input label="Username" required />
+            <Input label="Password" required />
+          </View>
+          <View>
+            <Button
+              title="LOGIN"
+              primary
+              onClick={() => navigation.navigate("MartDashboard")}
+            />
+            <TouchableOpacity style={{ marginBottom: 50 }}>
+              <Text style={{ textAlign: "right" }}>Forgot Password?</Text>
+            </TouchableOpacity>
+            <Button
+              title="REGISTER"
+              onClick={() => navigation.navigate("MartRegisterStepOne")}
+            />
+          </View>
         </View>
-        <View>
-          <Button
-            title="LOGIN"
-            primary
-            onClick={() => navigation.navigate("MartDashboard")}
-          />
-          <TouchableOpacity style={{ marginBottom: 50 }}>
-            <Text style={{ textAlign: "right" }}>Forgot Password?</Text>
-          </TouchableOpacity>
-          <Button
-            title="REGISTER"
-            onClick={() => navigation.navigate("MartRegisterStepOne")}
-          />
-        </View>
-      </View>
-    </Container>
+      </Container>
+    </AvoidKeyboardLayout>
   );
 }
 

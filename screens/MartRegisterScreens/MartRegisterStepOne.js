@@ -1,35 +1,42 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet } from "react-native";
-import { Container, Input, Button } from "../../components";
+import {
+  Container,
+  Input,
+  Button,
+  AvoidKeyboardLayout,
+} from "../../components";
 
 function MartRegisterStepOne() {
   const navigation = useNavigation();
 
   return (
-    <Container>
-      <View style={styles.circleRight}></View>
+    <AvoidKeyboardLayout>
+      <Container>
+        <View style={styles.circleRight}></View>
 
-      <View style={styles.container}>
-        <View style={styles.heading}>
-          <Text style={styles.mainHeading}>Step 01</Text>
-          <Text style={styles.secondHeading}>Enter your basic details</Text>
-        </View>
+        <View style={styles.container}>
+          <View style={styles.heading}>
+            <Text style={styles.mainHeading}>Step 01</Text>
+            <Text style={styles.secondHeading}>Enter your basic details</Text>
+          </View>
 
-        <View style={styles.inputs}>
-          <Input label="Username" required />
-          <Input label="Password" required />
-          <Input label="Confirm Password" required />
-        </View>
+          <View style={styles.inputs}>
+            <Input label="Username" required />
+            <Input label="Password" required />
+            <Input label="Confirm Password" required />
+          </View>
 
-        <View style={styles.buttons}>
-          <Button
-            title="NEXT"
-            onClick={() => navigation.navigate("MartRegisterStepTwo")}
-            primary
-          />
+          <View style={styles.buttons}>
+            <Button
+              title="NEXT"
+              onClick={() => navigation.navigate("MartRegisterStepTwo")}
+              primary
+            />
+          </View>
         </View>
-      </View>
-    </Container>
+      </Container>
+    </AvoidKeyboardLayout>
   );
 }
 
