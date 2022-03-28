@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Text, StyleSheet, Animated } from "react-native";
+import { Text, StyleSheet, Animated, View } from "react-native";
 import { COLORS } from "../../../constants/Theme";
 import animate from "../../../utils/animate";
 
@@ -12,23 +12,24 @@ export const ToastTypes = {
 export function useToast() {
   const [toast, setToast] = useState({
     msg: "",
+    secondMsg: "",
     type: "",
     duration: NaN,
     show: false,
   });
 
-  function showToast(msg, type, duration = 4000) {
-    setToast({ msg, type, duration, show: true });
+  function showToast(msg, secondMsg, type, duration = 4000) {
+    setToast({ msg, type, secondMsg, duration, show: true });
 
     setTimeout(() => {
-      setToast({ msg, type, duration: NaN, show: false });
+      setToast({ msg, type, secondMsg, duration: NaN, show: false });
     }, duration);
   }
 
   return [toast, showToast];
 }
 
-function Toast({ msg, type, duration, show }) {
+function Toast({ msg, type, secondMsg, show }) {
   const toastTypeContStyles =
     type === ToastTypes.SUCCESS
       ? styles.successToast
@@ -42,6 +43,13 @@ function Toast({ msg, type, duration, show }) {
       : type === ToastTypes.WARNING
       ? styles.warningToastText
       : styles.errorToastText;
+
+  const toastTypeSecondTextStyles =
+    type === ToastTypes.SUCCESS
+      ? styles.successToastSecondText
+      : type === ToastTypes.WARNING
+      ? styles.warningToastSecondText
+      : styles.errorToastSecondText;
 
   const translateY = useRef(new Animated.Value(-100)).current;
 
@@ -62,6 +70,7 @@ function Toast({ msg, type, duration, show }) {
       }}
     >
       <Text style={{ ...toastTypeTextStyles }}>{msg}</Text>
+      <Text style={{ ...toastTypeSecondTextStyles }}>{secondMsg}</Text>
     </Animated.View>
   );
 }
@@ -101,6 +110,22 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: "REGULAR",
     fontSize: 16,
+  },
+
+  successToastSecondText: {
+    color: COLORS.WHITE,
+    fontFamily: "REGULAR",
+    fontSize: 14,
+  },
+  warningToastSecondText: {
+    color: COLORS.BLACK,
+    fontFamily: "REGULAR",
+    fontSize: 14,
+  },
+  errorToastSecondText: {
+    color: COLORS.WHITE,
+    fontFamily: "REGULAR",
+    fontSize: 14,
   },
 });
 

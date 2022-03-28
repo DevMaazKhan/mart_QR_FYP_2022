@@ -1,33 +1,32 @@
-import { View, Text } from "react-native";
-import { AvoidKeyboardLayout, Button } from "../../components";
+import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet } from "react-native";
+import {
+  AvoidKeyboardLayout,
+  Button,
+  Container,
+  Input,
+} from "../../components";
 
 function ForgotPasswordStepOne() {
+  const navigation = useNavigation();
+
   return (
     <AvoidKeyboardLayout>
       <Container>
         <View style={styles.circleRight}></View>
 
         <View style={styles.container}>
-          <View style={styles.heading}>
-            <Text style={styles.mainHeading}>Step 02</Text>
-            <Text style={styles.secondHeading}>Enter your Mart details</Text>
-          </View>
-
           <View style={styles.inputs}>
-            <Input label="Mart Name" required />
-            <Input label="Mart Address" required />
             <Input label="Email" required />
-            <Input label="Mart Cell #" required />
-
-            <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
           </View>
 
           <View style={styles.buttons}>
+            <Text style={styles.text}>
+              A code will be sent to the given email.
+            </Text>
             <Button
-              title="REGISTER"
-              onClick={() =>
-                navigation.navigate("MartLogin", { loggedIn: true })
-              }
+              title="NEXT"
+              onClick={() => navigation.navigate("ForgotPasswordStepTwo")}
               primary
             />
           </View>
@@ -36,5 +35,38 @@ function ForgotPasswordStepOne() {
     </AvoidKeyboardLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
+  circleRight: {
+    width: 400,
+    height: 400,
+    backgroundColor: "#77B6EA",
+    borderRadius: 400 / 2,
+    position: "absolute",
+    left: -200,
+    bottom: 200,
+    opacity: 0.7,
+  },
+
+  inputs: {
+    flex: 1,
+    justifyContent: "flex-start",
+    marginTop: 200,
+  },
+
+  text: {
+    textAlign: "center",
+  },
+
+  buttons: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginTop: 10,
+  },
+});
 
 export default ForgotPasswordStepOne;

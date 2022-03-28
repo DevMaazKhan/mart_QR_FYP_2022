@@ -18,14 +18,30 @@ function MartLogin({ route }) {
   useEffect(() => {
     if (route.params) {
       if (route.params.loggedIn) {
-        showToast("You have registered successfully", ToastTypes.SUCCESS);
+        showToast(
+          "You have registered successfully",
+          "Now you can login",
+          ToastTypes.SUCCESS
+        );
+      }
+      if (route.params.passwordChanged) {
+        showToast(
+          "Password successfully changed",
+          "Now you can login with the new password",
+          ToastTypes.SUCCESS
+        );
       }
     }
   }, [route.params]);
 
   return (
     <AvoidKeyboardLayout>
-      <Toast msg={toast.msg} show={toast.show} type={toast.type} />
+      <Toast
+        msg={toast.msg}
+        secondMsg={toast.secondMsg}
+        show={toast.show}
+        type={toast.type}
+      />
       <Container>
         <View style={styles.circleRight}></View>
         <View style={styles.container}>
@@ -39,7 +55,10 @@ function MartLogin({ route }) {
               primary
               onClick={() => navigation.navigate("MartDashboard")}
             />
-            <TouchableOpacity style={{ marginBottom: 50 }}>
+            <TouchableOpacity
+              style={{ marginBottom: 50 }}
+              onPress={() => navigation.navigate("ForgotPasswordStepOne")}
+            >
               <Text style={{ textAlign: "right" }}>Forgot Password?</Text>
             </TouchableOpacity>
             <Button

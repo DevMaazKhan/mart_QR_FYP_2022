@@ -7,6 +7,11 @@ import {
   MartRegisterStepOne,
   MartRegisterStepTwo,
 } from "./MartRegisterScreens";
+import {
+  ForgotPasswordStepOne,
+  ForgotPasswordStepThree,
+  ForgotPasswordStepTwo,
+} from "./ForgotPasswordScreens";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +47,21 @@ function Routes() {
         options={{ headerShown: false }}
         name="MartRegisterStepTwo"
         component={MartRegisterStepTwo}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ForgotPasswordStepOne"
+        component={ForgotPasswordStepOne}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ForgotPasswordStepTwo"
+        component={ForgotPasswordStepTwo}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ForgotPasswordStepThree"
+        component={ForgotPasswordStepThree}
       />
     </Stack.Navigator>
   );
