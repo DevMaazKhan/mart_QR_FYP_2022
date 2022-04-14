@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 100,
   },
+
   circleRight: {
     width: 400,
     height: 400,
