@@ -1,8 +1,8 @@
 import { View, StatusBar, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import Button from "../components/utils/Button/Button";
-import Container from "../components/layout/Container";
+import Button from "../../../components/utils/Button/Button";
+import Container from "../../../components/layout/Container";
 
 function HomeScreen() {
   const navigation = useNavigation();

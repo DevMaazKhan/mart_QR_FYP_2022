@@ -5,22 +5,10 @@ import {
   Input,
   Button,
   AvoidKeyboardLayout,
-} from "../../components";
-import * as ImagePicker from "expo-image-picker";
+} from "../../../components";
 
-function MartRegisterStepTwo() {
+function MartRegisterStepOne() {
   const navigation = useNavigation();
-
-  async function openImageLibrary() {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log("CBM", { result });
-  }
 
   return (
     <AvoidKeyboardLayout>
@@ -29,25 +17,20 @@ function MartRegisterStepTwo() {
 
         <View style={styles.container}>
           <View style={styles.heading}>
-            <Text style={styles.mainHeading}>Step 02</Text>
-            <Text style={styles.secondHeading}>Enter your Mart details</Text>
+            <Text style={styles.mainHeading}>Step 01</Text>
+            <Text style={styles.secondHeading}>Enter your basic details</Text>
           </View>
 
           <View style={styles.inputs}>
-            <Input label="Mart Name" required />
-            <Input label="Mart Address" required />
-            <Input label="Email" required />
-            <Input label="Mart Cell #" required />
-
-            <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
+            <Input label="Username" required />
+            <Input label="Password" required />
+            <Input label="Confirm Password" required />
           </View>
 
           <View style={styles.buttons}>
             <Button
-              title="REGISTER"
-              onClick={() =>
-                navigation.navigate("MartLogin", { loggedIn: true })
-              }
+              title="NEXT"
+              onClick={() => navigation.navigate("MartRegisterStepTwo")}
               primary
             />
           </View>
@@ -60,8 +43,9 @@ function MartRegisterStepTwo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 100,
   },
+
   circleRight: {
     width: 400,
     height: 400,
@@ -93,8 +77,7 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     justifyContent: "flex-end",
-    marginTop: 10,
   },
 });
 
-export default MartRegisterStepTwo;
+export default MartRegisterStepOne;

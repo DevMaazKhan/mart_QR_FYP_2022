@@ -5,9 +5,9 @@ import {
   Button,
   Container,
   Input,
-} from "../../components";
+} from "../../../components";
 
-function ForgotPasswordStepOne() {
+function ForgotPasswordStepThree() {
   const navigation = useNavigation();
 
   return (
@@ -17,16 +17,16 @@ function ForgotPasswordStepOne() {
 
         <View style={styles.container}>
           <View style={styles.inputs}>
-            <Input label="Email" required />
+            <Input label="New Password" required />
+            <Input label="Confirm New Password" required />
           </View>
 
           <View style={styles.buttons}>
-            <Text style={styles.text}>
-              A code will be sent to the given email.
-            </Text>
             <Button
-              title="NEXT"
-              onClick={() => navigation.navigate("ForgotPasswordStepTwo")}
+              title="CHANGE PASSWORD"
+              onClick={() =>
+                navigation.navigate("MartLogin", { passwordChanged: true })
+              }
               primary
             />
           </View>
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgotPasswordStepOne;
+export default ForgotPasswordStepThree;

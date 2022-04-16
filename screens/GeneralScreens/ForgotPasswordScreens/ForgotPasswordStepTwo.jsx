@@ -5,7 +5,7 @@ import {
   Button,
   Container,
   Input,
-} from "../../components";
+} from "../../../components";
 
 function ForgotPasswordStepTwo() {
   const navigation = useNavigation();

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Container } from "../../components";
-import { COLORS } from "../../constants/Theme";
+import { Container } from "../../../components";
+import { COLORS } from "../../../constants/Theme";
 import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -17,7 +17,11 @@ function MartDashboard() {
         <Text style={styles.heading}>Baig Mart</Text>
 
         <View style={styles.boxes}>
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("ManageItems")}
+          >
             <View style={styles.boxInner}>
               <Feather
                 name="shopping-cart"
@@ -27,7 +31,7 @@ function MartDashboard() {
               <Text style={styles.boxSubHeading}>120</Text>
               <Text style={styles.boxHeading}>Items</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.box}>
             <View style={styles.boxInner}>
@@ -50,6 +54,30 @@ function MartDashboard() {
               />
               <Text style={styles.boxSubHeading}>200</Text>
               <Text style={styles.boxHeading}>Floors</Text>
+            </View>
+          </View>
+
+          <View style={styles.box}>
+            <View style={styles.boxInner}>
+              <MaterialCommunityIcons
+                name="layers-outline"
+                size={20}
+                style={{ marginBottom: 10 }}
+              />
+              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxHeading}>Categories</Text>
+            </View>
+          </View>
+
+          <View style={styles.box}>
+            <View style={styles.boxInner}>
+              <MaterialCommunityIcons
+                name="layers-outline"
+                size={20}
+                style={{ marginBottom: 10 }}
+              />
+              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxHeading}>Company</Text>
             </View>
           </View>
 

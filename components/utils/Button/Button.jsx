@@ -9,7 +9,7 @@ function Button({ title, width, marginBottom, primary, onClick, size }) {
         marginBottom: marginBottom || 0,
         alignItems: "center",
         backgroundColor: primary ? "#77B6EA" : "transparent",
-        padding: size === "lg" ? 15 : 10,
+        padding: size === "lg" ? 15 : size === "md" ? 10 : 5,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "#77B6EA",

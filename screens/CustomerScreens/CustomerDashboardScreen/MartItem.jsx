@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { COLORS } from "../../constants/Theme";
+import { COLORS } from "../../../constants/Theme";
 
 function MartItem({ item }) {
   return (

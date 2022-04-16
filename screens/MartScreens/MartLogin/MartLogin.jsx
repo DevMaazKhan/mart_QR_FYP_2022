@@ -8,8 +8,8 @@ import {
   Input,
   Toast,
   useToast,
-} from "../components";
-import { ToastTypes } from "../components/utils/Toast/Toast";
+} from "../../../components";
+import { ToastTypes } from "../../../components/utils/Toast/Toast";
 
 function MartLogin({ route }) {
   const [toast, showToast] = useToast();

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useState } from "react";
-import Container from "../../components/layout/Container";
-import Input from "../../components/utils/Input/Input";
+import Container from "../../../components/layout/Container";
+import Input from "../../../components/utils/Input/Input";
 import MartList from "./MartList";
 
 function CustomerDashboardScreen() {

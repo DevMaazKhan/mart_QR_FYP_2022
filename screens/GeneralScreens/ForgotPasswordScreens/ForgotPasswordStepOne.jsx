@@ -1,13 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet } from "react-native";
 import {
+  AvoidKeyboardLayout,
+  Button,
   Container,
   Input,
-  Button,
-  AvoidKeyboardLayout,
-} from "../../components";
+} from "../../../components";
 
-function MartRegisterStepOne() {
+function ForgotPasswordStepOne() {
   const navigation = useNavigation();
 
   return (
@@ -16,21 +16,17 @@ function MartRegisterStepOne() {
         <View style={styles.circleRight}></View>
 
         <View style={styles.container}>
-          <View style={styles.heading}>
-            <Text style={styles.mainHeading}>Step 01</Text>
-            <Text style={styles.secondHeading}>Enter your basic details</Text>
-          </View>
-
           <View style={styles.inputs}>
-            <Input label="Username" required />
-            <Input label="Password" required />
-            <Input label="Confirm Password" required />
+            <Input label="Email" required />
           </View>
 
           <View style={styles.buttons}>
+            <Text style={styles.text}>
+              A code will be sent to the given email.
+            </Text>
             <Button
               title="NEXT"
-              onClick={() => navigation.navigate("MartRegisterStepTwo")}
+              onClick={() => navigation.navigate("ForgotPasswordStepTwo")}
               primary
             />
           </View>
@@ -43,9 +39,8 @@ function MartRegisterStepOne() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 100,
+    marginTop: 20,
   },
-
   circleRight: {
     width: 400,
     height: 400,
@@ -57,27 +52,21 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
 
-  mainHeading: {
-    fontSize: 30,
-    fontFamily: "BOLD",
-    marginBottom: -10,
-  },
-
-  secondHeading: {
-    fontSize: 14,
-    fontFamily: "REGULAR",
-  },
-
   inputs: {
     flex: 1,
     justifyContent: "flex-start",
-    marginTop: 30,
+    marginTop: 200,
+  },
+
+  text: {
+    textAlign: "center",
   },
 
   buttons: {
     flex: 1,
     justifyContent: "flex-end",
+    marginTop: 10,
   },
 });
 
-export default MartRegisterStepOne;
+export default ForgotPasswordStepOne;
