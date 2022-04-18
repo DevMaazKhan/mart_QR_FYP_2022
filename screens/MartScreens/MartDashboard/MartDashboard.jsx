@@ -77,7 +77,7 @@ function MartDashboard() {
                 style={{ marginBottom: 10 }}
               />
               <Text style={styles.boxSubHeading}>200</Text>
-              <Text style={styles.boxHeading}>Company</Text>
+              <Text style={styles.boxHeading}>Companies</Text>
             </View>
           </View>
 

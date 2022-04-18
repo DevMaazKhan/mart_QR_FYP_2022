@@ -6,11 +6,11 @@ import {
   Select,
   AvoidKeyboardLayout,
 } from "../../../../components";
-import { useItemScreenContext } from "../context/ManageItems.context";
+import { useShelveScreenContext } from "../context/ManageShelves.context";
 import * as ImagePicker from "expo-image-picker";
 
-export function AddEditItemScreen() {
-  const { isEditMode } = useItemScreenContext();
+export function AddEditShelveScreen() {
+  const { isEditMode } = useShelveScreenContext();
 
   async function openImageLibrary() {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,11 +25,13 @@ export function AddEditItemScreen() {
     <AvoidKeyboardLayout>
       <Container>
         <View style={styles.root}>
-          <Text style={styles.heading}>{isEditMode ? "Edit" : "Add"} Item</Text>
+          <Text style={styles.heading}>
+            {isEditMode ? "Edit" : "Add"} Shelve
+          </Text>
           <View style={styles.form}>
-            <Input label="Item Name" />
-            <Input label="Item Spec" />
-            <Input label="Item Description" multiLine numberOfLines={4} />
+            <Input label="Shelve Name" />
+            <Input label="Shelve Spec" />
+            <Input label="Shelve Description" multiLine numberOfLines={4} />
             <Input label="Price" />
             <Input label="Discount Price" />
 
@@ -58,8 +60,8 @@ export function AddEditItemScreen() {
             <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
 
             <Button
-              title="Add Item"
-              onClick={() => navigation.navigate("ManageItems")}
+              title="Add Shelve"
+              onClick={() => navigation.navigate("ManageShelves")}
               primary
             />
           </View>
