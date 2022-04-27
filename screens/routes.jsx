@@ -13,7 +13,15 @@ import {
   ForgotPasswordStepTwo,
 } from "./GeneralScreens/ForgotPasswordScreens";
 import { ManageItemsScreen } from "./MartScreens/ManageItems/ManageItems.screen";
-import { AddEditItemScreen } from "./MartScreens/ManageItems/components/AddEditItemScreen";
+import { AddEditItemScreen } from "./MartScreens/ManageItems/components/AddEditItem";
+import { ManageShelvesScreen } from "./MartScreens/ManageShelves/ManageShelves.screen";
+import { AddEditShelveScreen } from "./MartScreens/ManageShelves/components/AddEditShelves";
+import { ManageFloorsScreen } from "./MartScreens/ManageFloors/ManageFloors.screen";
+import { AddEditFloorScreen } from "./MartScreens/ManageFloors/components/AddEditFloor";
+import { ManageCategoryScreen } from "./MartScreens/ManageCategory/ManageCategory.screen";
+import { AddEditCategoryScreen } from "./MartScreens/ManageCategory/components/AddEditCategory";
+import { ManageCompanyScreen } from "./MartScreens/ManageCompany/ManageCompany.screen";
+import { AddEditCompanyScreen } from "./MartScreens/ManageCompany/components/AddEditCompany";
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +92,54 @@ function Routes() {
         options={{ headerShown: false }}
         name="AddEditItemScreen"
         component={AddEditItemScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ManageShelves"
+        component={ManageShelvesScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AddEditShelveScreen"
+        component={AddEditShelveScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ManageFloors"
+        component={ManageFloorsScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AddEditFloorScreen"
+        component={AddEditFloorScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ManageCategory"
+        component={ManageCategoryScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AddEditCategory"
+        component={AddEditCategoryScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ManageCompany"
+        component={ManageCompanyScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AddEditCompany"
+        component={AddEditCompanyScreen}
       />
     </Stack.Navigator>
   );

@@ -33,7 +33,11 @@ function MartDashboard() {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("ManageShelves")}
+          >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
                 name="library-shelves"
@@ -43,9 +47,13 @@ function MartDashboard() {
               <Text style={styles.boxSubHeading}>200</Text>
               <Text style={styles.boxHeading}>Shelves</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("ManageFloors")}
+          >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
                 name="layers-outline"
@@ -55,9 +63,13 @@ function MartDashboard() {
               <Text style={styles.boxSubHeading}>200</Text>
               <Text style={styles.boxHeading}>Floors</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("ManageCategory")}
+          >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
                 name="layers-outline"
@@ -67,9 +79,13 @@ function MartDashboard() {
               <Text style={styles.boxSubHeading}>200</Text>
               <Text style={styles.boxHeading}>Categories</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("ManageCompany")}
+          >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
                 name="layers-outline"
@@ -79,7 +95,7 @@ function MartDashboard() {
               <Text style={styles.boxSubHeading}>200</Text>
               <Text style={styles.boxHeading}>Companies</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.box}>
             <View style={styles.boxInner}>

@@ -29,11 +29,18 @@ export function AddEditShelveScreen() {
             {isEditMode ? "Edit" : "Add"} Shelve
           </Text>
           <View style={styles.form}>
-            <Input label="Shelve Name" />
-            <Input label="Shelve Spec" />
-            <Input label="Shelve Description" multiLine numberOfLines={4} />
-            <Input label="Price" />
-            <Input label="Discount Price" />
+            <Input label="Shelve Name" required />
+
+            <Select
+              options={[
+                { firstName: "123", id: "1" },
+                { firstName: "1234", id: "2" },
+              ]}
+              labelKey="firstName"
+              valueKey="id"
+              label="Floor"
+              required
+            />
 
             <Select
               options={[
@@ -45,19 +52,6 @@ export function AddEditShelveScreen() {
               label="Category"
               required
             />
-
-            <Select
-              options={[
-                { firstName: "123", id: "1" },
-                { firstName: "1234", id: "2" },
-              ]}
-              labelKey="firstName"
-              valueKey="id"
-              label="Company"
-              required
-            />
-
-            <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
 
             <Button
               title="Add Shelve"

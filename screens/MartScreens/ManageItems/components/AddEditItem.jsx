@@ -57,6 +57,8 @@ export function AddEditItemScreen() {
 
             <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
 
+            <View style={{ marginVertical: 5 }} />
+
             <Button
               title="Add Item"
               onClick={() => navigation.navigate("ManageItems")}

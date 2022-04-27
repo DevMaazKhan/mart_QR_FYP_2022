@@ -1,27 +1,27 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
-import { ShelvesTable } from "./ShelvesTable";
-import { useShelveScreenContext } from "../context/ManageShelves.context";
+import { FloorTable } from "./CategoryTable";
+import { useCategoryScreenContext } from "../context/ManageCategory.context";
 
-export function ManageShelvesDashboard() {
-  const { goToAddShelveScreen } = useShelveScreenContext();
+export function ManageCategoryDashboard() {
+  const { goToAddCategoryScreen } = useCategoryScreenContext();
 
   return (
     <Container>
       <View style={styles.root}>
-        <Text style={styles.heading}>Manage Shelves</Text>
-        <Text style={styles.subHeading}>Add/Edit/Delete Shelves</Text>
+        <Text style={styles.heading}>Manage Category</Text>
+        <Text style={styles.subHeading}>Add/Edit/Delete Category</Text>
 
-        <View style={styles.addNewShelveBtn}>
+        <View style={styles.addNewFloorBtn}>
           <Button
-            title="Add New Shelve"
-            width={150}
+            title="Add New Category"
+            width={200}
             primary
-            onClick={goToAddShelveScreen}
+            onClick={goToAddCategoryScreen}
           />
         </View>
 
-        <ShelvesTable />
+        <FloorTable />
       </View>
     </Container>
   );
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
 
-  addNewShelveBtn: {
+  addNewFloorBtn: {
     display: "flex",
     alignItems: "flex-end",
     marginTop: 10,
