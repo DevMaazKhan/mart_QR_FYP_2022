@@ -22,6 +22,7 @@ import { ManageCategoryScreen } from "./MartScreens/ManageCategory/ManageCategor
 import { AddEditCategoryScreen } from "./MartScreens/ManageCategory/components/AddEditCategory";
 import { ManageCompanyScreen } from "./MartScreens/ManageCompany/ManageCompany.screen";
 import { AddEditCompanyScreen } from "./MartScreens/ManageCompany/components/AddEditCompany";
+import { ManageProfileSettingsScreen } from "./MartScreens/MartProfileSettings/MartProfileSettings.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -140,6 +141,12 @@ function Routes() {
         options={{ headerShown: false }}
         name="AddEditCompany"
         component={AddEditCompanyScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="MartSettings"
+        component={ManageProfileSettingsScreen}
       />
     </Stack.Navigator>
   );

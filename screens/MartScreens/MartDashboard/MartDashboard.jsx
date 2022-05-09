@@ -97,12 +97,16 @@ function MartDashboard() {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            activeOpacity={1}
+            onPress={() => navigation.navigate("MartSettings")}
+          >
             <View style={styles.boxInner}>
               <MaterialIcons name="settings" size={20} />
               <Text style={styles.boxHeading}>Settings</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <TouchableOpacity
             activeOpacity={1}
