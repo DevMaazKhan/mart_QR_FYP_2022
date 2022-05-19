@@ -11,6 +11,9 @@ function CustomerDashboardScreen() {
     <Container>
       <View style={styles.circleRight}></View>
       <View style={styles.container}>
+        <Text style={styles.heading}>Mart List</Text>
+        <Text style={styles.subHeading}>Select Your mart to explore more.</Text>
+
         <Input
           placeholder="Search Mart ..."
           onChange={(text) => setQuery(text)}
@@ -33,8 +36,21 @@ const styles = StyleSheet.create({
     top: -200,
     opacity: 0.7,
   },
+
   container: {
-    marginTop: 100,
+    marginTop: 50,
+  },
+
+  heading: {
+    fontFamily: "BOLD",
+    fontSize: 30,
+  },
+
+  subHeading: {
+    fontFamily: "MEDIUM",
+    fontSize: 14,
+    marginTop: -11,
+    opacity: 0.4,
   },
 });
 
