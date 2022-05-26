@@ -1,4 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import { COLORS } from "../../../constants/Theme";
 import { useState } from "react";
 import Container from "../../../components/layout/Container";
 import Input from "../../../components/utils/Input/Input";
@@ -7,9 +10,28 @@ import MartList from "./MartList";
 function CustomerDashboardScreen() {
   const [query, setQuery] = useState("");
 
+  const navigation = useNavigation();
+
   return (
     <Container>
       <View style={styles.circleRight}></View>
+      <TouchableOpacity onPress={() => navigation.navigate("ScannerScreen")}>
+        <View
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: COLORS.WHITE,
+            borderRadius: 100,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            elevation: 10,
+            marginLeft: "auto",
+          }}
+        >
+          <AntDesign name="scan1" size={24} color="black" />
+        </View>
+      </TouchableOpacity>
       <View style={styles.container}>
         <Text style={styles.heading}>Mart List</Text>
         <Text style={styles.subHeading}>Select Your mart to explore more.</Text>
@@ -38,7 +60,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    marginTop: 50,
+    marginTop: 30,
   },
 
   heading: {

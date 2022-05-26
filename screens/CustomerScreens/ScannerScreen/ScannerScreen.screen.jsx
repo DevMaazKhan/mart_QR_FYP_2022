@@ -1,14 +1,23 @@
 import { useRef, useState, useEffect } from "react";
-import { Text, StyleSheet, View, Dimensions } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { BarCodeScanner, BarCodeBounds } from "expo-barcode-scanner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../constants/Theme";
+import { useNavigation } from "@react-navigation/native";
 
 export function ScannerScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+
+  const navigate = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -56,19 +65,21 @@ export function ScannerScreen() {
             <Ionicons name="scan-outline" size={280} color="white" />
           </View>
 
-          <View
-            style={{
-              backgroundColor: COLORS.BLACK,
-              borderRadius: 100,
-              width: 60,
-              height: 60,
-              marginRight: 22,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <AntDesign name="close" size={44} color={COLORS.WHITE} />
-          </View>
+          <TouchableOpacity activeOpacity={1} onPress={() => navigate.goBack()}>
+            <View
+              style={{
+                backgroundColor: COLORS.BLACK,
+                borderRadius: 100,
+                width: 60,
+                height: 60,
+                marginRight: 22,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <AntDesign name="close" size={44} color={COLORS.WHITE} />
+            </View>
+          </TouchableOpacity>
         </View>
       </BarCodeScanner>
     </View>
