@@ -24,6 +24,8 @@ import { ManageCompanyScreen } from "./MartScreens/ManageCompany/ManageCompany.s
 import { AddEditCompanyScreen } from "./MartScreens/ManageCompany/components/AddEditCompany";
 import { ManageProfileSettingsScreen } from "./MartScreens/MartProfileSettings/MartProfileSettings.screen";
 import { ScannerScreen } from "./CustomerScreens/ScannerScreen/ScannerScreen.screen";
+import { SelectedMartScreen } from "./CustomerScreens/SelectedMartScreen/SelectedMart.screen";
+import ProductScreen from "./CustomerScreens/ProductScreen/ProductScreen.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,8 +46,20 @@ function Routes() {
 
       <Stack.Screen
         options={{ headerShown: false }}
+        name="SelectedMart"
+        component={SelectedMartScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
         name="ScannerScreen"
         component={ScannerScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ProductScreen"
+        component={ProductScreen}
       />
 
       <Stack.Screen

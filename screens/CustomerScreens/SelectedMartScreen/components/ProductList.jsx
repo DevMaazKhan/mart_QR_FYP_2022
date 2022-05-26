@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { COLORS } from "../../../constants/Theme";
+import { COLORS } from "../../../../constants/Theme";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -29,7 +29,7 @@ const mockData = [
   { id: "6555d917-078e-41fc-a54c-12394f65c7ba2b1231", martName: "Cogilith" },
 ];
 
-function MartList({ query }) {
+function ProductList({ query }) {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const navigation = useNavigation();
@@ -38,7 +38,7 @@ function MartList({ query }) {
     <View
       style={{
         backgroundColor: "transparent",
-        height: 450,
+        height: 420,
       }}
     >
       <Animated.FlatList
@@ -47,12 +47,12 @@ function MartList({ query }) {
         data={mockData.filter((data) => data.martName.includes(query))}
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
-            inputRange: [-1, 0, 100 * index, 100 * (index + 1)],
+            inputRange: [-1, 0, 153 * index, 153 * (index + 1)],
             outputRange: [1, 1, 1, 0],
           });
 
           const opacity = scrollY.interpolate({
-            inputRange: [-1, 0, 100 * index, 100 * (index + 0.6)],
+            inputRange: [-1, 0, 153 * index, 153 * (index + 0.6)],
             outputRange: [1, 1, 1, 0],
           });
 
@@ -61,14 +61,76 @@ function MartList({ query }) {
               <TouchableOpacity
                 style={styles.container}
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate("SelectedMart")}
+                onPress={() => navigation.navigate("ProductScreen")}
               >
-                <Text style={styles.martNameHeading}>Mart Name:</Text>
+                <View
+                  style={{
+                    marginBottom: 5,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: COLORS.PRIMARY,
+                      paddingHorizontal: 10,
+                      paddingVertical: 2,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <Text style={{ color: COLORS.WHITE, fontSize: 10 }}>
+                      Nestle
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: COLORS.PRIMARY,
+                      paddingHorizontal: 10,
+                      paddingVertical: 2,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <Text style={{ color: COLORS.BLACK, fontSize: 8 }}>
+                      Shampoo
+                    </Text>
+                  </View>
+                </View>
+
                 <Text style={styles.martName}>{item.martName}</Text>
+                <Text style={styles.martDesc}>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero
+                  dolore
+                </Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: COLORS.BLACK,
+                      opacity: 0.8,
+                      marginRight: 10,
+                    }}
+                  >
+                    Price:
+                  </Text>
+                  <Text style={{ fontFamily: "BOLD", color: COLORS.BLACK }}>
+                    123 RS
+                  </Text>
+                </View>
                 <View
                   style={{
                     alignItems: "flex-end",
                     width: "100%",
+                    marginTop: "auto",
                   }}
                 >
                   <AntDesign name="right" size={20} color={COLORS.PRIMARY} />
@@ -90,8 +152,8 @@ function MartList({ query }) {
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 90,
-    maxHeight: 90,
+    minHeight: 140,
+    maxHeight: 140,
     backgroundColor: COLORS.WHITE,
     marginBottom: 10,
     borderRadius: 10,
@@ -110,6 +172,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.PRIMARY,
   },
+  martDesc: {
+    marginTop: -12,
+    fontSize: 12,
+    fontFamily: "LIGHT",
+    color: COLORS.BLACK,
+    opacity: 0.5,
+  },
 });
 
-export default MartList;
+export default ProductList;

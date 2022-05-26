@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Text, StyleSheet, View, Dimensions } from "react-native";
 import { BarCodeScanner, BarCodeBounds } from "expo-barcode-scanner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../constants/Theme";
 
@@ -52,25 +53,21 @@ export function ScannerScreen() {
               marginBottom: 100,
             }}
           >
-            <MaterialCommunityIcons
-              name="scan-helper"
-              size={270}
-              color={COLORS.WHITE}
-            />
+            <Ionicons name="scan-outline" size={280} color="white" />
           </View>
 
           <View
             style={{
               backgroundColor: COLORS.BLACK,
               borderRadius: 100,
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               marginRight: 22,
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <AntDesign name="close" size={54} color={COLORS.WHITE} />
+            <AntDesign name="close" size={44} color={COLORS.WHITE} />
           </View>
         </View>
       </BarCodeScanner>
