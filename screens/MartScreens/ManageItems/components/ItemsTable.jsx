@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 
-import { ItemsList } from "../../../../components/Items/ItemsList";
+import { ProductList } from "../../../../components/Products/ProductList";
 import { Input } from "../../../../components";
 
 export function ItemsTable() {
@@ -8,7 +8,7 @@ export function ItemsTable() {
     <View>
       <Input label="Search Item..." />
       <View>
-        <ItemsList />
+        <ProductList products={[]} />
       </View>
     </View>
   );

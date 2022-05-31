@@ -26,6 +26,7 @@ import { ManageProfileSettingsScreen } from "./MartScreens/MartProfileSettings/M
 import { ScannerScreen } from "./CustomerScreens/ScannerScreen/ScannerScreen.screen";
 import { SelectedMartScreen } from "./CustomerScreens/SelectedMartScreen/SelectedMart.screen";
 import ProductScreen from "./CustomerScreens/ProductScreen/ProductScreen.screen";
+import { CompareProductsScreen } from "./CustomerScreens/CompareProducts/CompareProducts.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,12 @@ function Routes() {
         options={{ headerShown: false }}
         name="ProductScreen"
         component={ProductScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="CompareProductScreen"
+        component={CompareProductsScreen}
       />
 
       <Stack.Screen

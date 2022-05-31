@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import Container from "../../../components/layout/Container";
 import Input from "../../../components/utils/Input/Input";
-import { COLORS } from "../../../constants/Theme";
 import { ProductList } from "../../../components/Products/ProductList";
-import { useNavigation } from "@react-navigation/native";
+import { Select } from "../../../components";
 
 const mockData = [
   { id: "7013ae92-1fe9-41c9-82e2-fd1f5d220fe9", martName: "Thoughtstorm" },
@@ -26,47 +23,31 @@ const mockData = [
   { id: "6555d917-078e-41fc-a54c-12394f65c7ba2b1231", martName: "Cogilith" },
 ];
 
-export function SelectedMartScreen() {
-  const [query, setQuery] = useState("");
-
-  const navigation = useNavigation();
-
+export function CompareProductsScreen() {
   return (
     <Container>
       <View style={styles.circleRight}></View>
-      <TouchableOpacity onPress={() => navigation.navigate("ScannerScreen")}>
-        <View
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: COLORS.WHITE,
-            borderRadius: 100,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            elevation: 10,
-            marginLeft: "auto",
-          }}
-        >
-          <AntDesign name="scan1" size={24} color="black" />
-        </View>
-      </TouchableOpacity>
+
       <View style={styles.container}>
-        <Text style={styles.heading}>Baig Mart</Text>
+        <Text style={styles.heading}>Compare Products</Text>
         <Text style={styles.subHeading}>
-          Select a product from the list or scan a products QR Code.
+          There is the list of all the products in the current shelf, you can
+          compare them however you want.
         </Text>
 
-        <Input
-          placeholder="Search Product ..."
-          onChange={(text) => setQuery(text)}
-        />
+        <View>
+          <Select
+            options={[
+              { firstName: "Hight To Low", id: "1" },
+              { firstName: "Low To High", id: "2" },
+            ]}
+            labelKey="firstName"
+            valueKey="id"
+            label="Price"
+          />
+        </View>
 
-        <ProductList
-          products={mockData}
-          onProductPress={() => navigation.navigate("ProductScreen")}
-          query={query}
-        />
+        <ProductList products={mockData} query="" />
       </View>
     </Container>
   );

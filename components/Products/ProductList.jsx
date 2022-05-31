@@ -1,19 +1,16 @@
 import { useRef } from "react";
 import {
   View,
-  Animated,
-  StyleSheet,
   Text,
+  StyleSheet,
+  Animated,
   TouchableOpacity,
 } from "react-native";
-import { COLORS } from "../../../../constants/Theme";
+import { COLORS } from "../../constants/Theme";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
-function ProductList({ query }) {
+export function ProductList({ products, onProductPress, query }) {
   const scrollY = useRef(new Animated.Value(0)).current;
-
-  const navigation = useNavigation();
 
   return (
     <View
@@ -25,7 +22,11 @@ function ProductList({ query }) {
       <Animated.FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={mockData.filter((data) => data.martName.includes(query))}
+        data={
+          products
+            ? products.filter((data) => data.martName.includes(query))
+            : []
+        }
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
             inputRange: [-1, 0, 153 * index, 153 * (index + 1)],
@@ -42,7 +43,7 @@ function ProductList({ query }) {
               <TouchableOpacity
                 style={styles.container}
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate("ProductScreen")}
+                onPress={onProductPress}
               >
                 <View
                   style={{
@@ -161,5 +162,3 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 });
-
-export default ProductList;
