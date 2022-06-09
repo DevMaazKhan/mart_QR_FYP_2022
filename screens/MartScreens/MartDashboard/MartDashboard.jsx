@@ -5,16 +5,18 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function MartDashboard() {
   const navigation = useNavigation();
+  const { user } = useUserContext();
 
   return (
     <Container>
       <View style={styles.root}>
         <View style={styles.circleRight}></View>
 
-        <Text style={styles.heading}>Baig Mart</Text>
+        <Text style={styles.heading}>{user.martName}</Text>
 
         <View style={styles.boxes}>
           <TouchableOpacity
@@ -28,7 +30,7 @@ function MartDashboard() {
                 size={20}
                 style={{ marginBottom: 10 }}
               />
-              <Text style={styles.boxSubHeading}>120</Text>
+              <Text style={styles.boxSubHeading}>{user.itemsCount}</Text>
               <Text style={styles.boxHeading}>Items</Text>
             </View>
           </TouchableOpacity>
@@ -44,7 +46,7 @@ function MartDashboard() {
                 size={20}
                 style={{ marginBottom: 10 }}
               />
-              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxSubHeading}>{user.shelvesCount}</Text>
               <Text style={styles.boxHeading}>Shelves</Text>
             </View>
           </TouchableOpacity>
@@ -60,7 +62,7 @@ function MartDashboard() {
                 size={20}
                 style={{ marginBottom: 10 }}
               />
-              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxSubHeading}>{user.floorsCount}</Text>
               <Text style={styles.boxHeading}>Floors</Text>
             </View>
           </TouchableOpacity>
@@ -76,7 +78,7 @@ function MartDashboard() {
                 size={20}
                 style={{ marginBottom: 10 }}
               />
-              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxSubHeading}>{user.categoriesCount}</Text>
               <Text style={styles.boxHeading}>Categories</Text>
             </View>
           </TouchableOpacity>
@@ -92,7 +94,7 @@ function MartDashboard() {
                 size={20}
                 style={{ marginBottom: 10 }}
               />
-              <Text style={styles.boxSubHeading}>200</Text>
+              <Text style={styles.boxSubHeading}>{user.companiesCount}</Text>
               <Text style={styles.boxHeading}>Companies</Text>
             </View>
           </TouchableOpacity>

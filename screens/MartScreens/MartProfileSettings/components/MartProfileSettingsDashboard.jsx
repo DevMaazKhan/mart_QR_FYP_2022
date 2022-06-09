@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import {
   AvoidKeyboardLayout,
@@ -7,8 +8,50 @@ import {
 } from "../../../../components";
 import { COLORS } from "../../../../constants/Theme";
 import { Entypo } from "@expo/vector-icons";
+import { useUserContext } from "../../../../contexts/UserContext";
+import { useFormik } from "formik";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../firebase.config";
+import { useLoadingContext } from "../../../../contexts/LoadingContext";
 
 export function MartProfileSettingsDashboard() {
+  const { user, setUser } = useUserContext();
+  const { startLoading, endLoading, loading } = useLoadingContext();
+
+  async function editProfile(values) {
+    startLoading();
+
+    const collectionById = doc(db, "Mart", user.martID);
+
+    try {
+      await updateDoc(collectionById, values);
+
+      setUser((prev) => ({ ...prev, martName: values.MartName }));
+    } catch (error) {
+      console.log("CBM", { error });
+    }
+
+    endLoading();
+  }
+
+  const { values, handleChange, handleSubmit, errors, touched, resetForm } =
+    useFormik({
+      initialValues: {
+        MartName: "",
+      },
+      onSubmit: editProfile,
+    });
+
+  useEffect(() => {
+    if (user.isLoggedIn) {
+      resetForm({
+        values: {
+          MartName: user.martName,
+        },
+      });
+    }
+  }, []);
+
   return (
     <AvoidKeyboardLayout>
       <Container>
@@ -35,13 +78,37 @@ export function MartProfileSettingsDashboard() {
 
             <View style={{ marginVertical: 20 }} />
 
-            <Input label="Mart Name" />
-            <Input label="Mart Address" />
-            <Input label="Email" />
-            <Input label="Mart Cell #" />
+            <Input
+              label="Mart Name"
+              value={values.MartName}
+              onChange={handleChange("MartName")}
+            />
+            <Input
+              label="Mart Address"
+              value={values.martAddress}
+              onChange={handleChange("martAddress")}
+              disabled
+            />
+            <Input
+              label="Email"
+              value={values.martEmail}
+              onChange={handleChange("martEmail")}
+              disabled
+            />
+            <Input
+              label="Mart Cell #"
+              value={values.martCell}
+              onChange={handleChange("martCell")}
+              disabled
+            />
 
             <View style={styles.buttons}>
-              <Button title="Save" primary />
+              <Button
+                title="Save"
+                primary
+                onClick={handleSubmit}
+                isLoading={loading}
+              />
             </View>
           </View>
         </View>

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
-import { FloorTable } from "./CompanyTable";
+import { CompanyList } from "./CompanyList";
 import { useCompanyScreenContext } from "../context/ManageCompany.context";
 
 export function ManageCompanyDashboard() {
@@ -21,7 +21,9 @@ export function ManageCompanyDashboard() {
           />
         </View>
 
-        <FloorTable />
+        <View style={{ marginVertical: 10 }} />
+
+        <CompanyList />
       </View>
     </Container>
   );

@@ -12,6 +12,10 @@ function Input({
   required,
   multiLine,
   numberOfLines,
+  secureTextEntry = false,
+  isError = false,
+  errorText = "",
+  disabled = false,
 }) {
   return (
     <View style={styles.inputContainer}>
@@ -28,7 +32,10 @@ function Input({
         style={styles.input}
         multiline={multiLine}
         numberOfLines={numberOfLines}
+        secureTextEntry={secureTextEntry}
+        editable={!disabled}
       />
+      {isError && <Text style={styles.error}>{errorText}</Text>}
     </View>
   );
 }
@@ -37,6 +44,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     paddingTop: 10,
     paddingBottom: 10,
+    maxHeight: 80,
   },
   labelContainer: {
     display: "flex",
@@ -57,6 +65,11 @@ const styles = StyleSheet.create({
     fontFamily: "BOLD",
     marginTop: -2,
     fontSize: 14,
+  },
+  error: {
+    color: COLORS.ERROR,
+    fontSize: 10,
+    marginLeft: 5,
   },
 });
 

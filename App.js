@@ -4,6 +4,10 @@ import { useFonts } from "expo-font";
 import { FONTS } from "./constants/Theme.js";
 import { NavigationContainer } from "@react-navigation/native";
 import Routes from "./screens/routes";
+import { LoadingContextProvider } from "./contexts/LoadingContext.jsx";
+import { UserContextProvider } from "./contexts/UserContext";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer"]);
 
 export default function App() {
   const [loaded] = useFonts(FONTS);
@@ -12,8 +16,12 @@ export default function App() {
   if (!loaded) return <Text>Loading...</Text>;
 
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <LoadingContextProvider>
+      <UserContextProvider>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </UserContextProvider>
+    </LoadingContextProvider>
   );
 }
