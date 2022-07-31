@@ -1,11 +1,20 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Container from "../../../components/layout/Container";
 import Input from "../../../components/utils/Input/Input";
 import { COLORS } from "../../../constants/Theme";
+import { doc, getDoc, getDocs, query as que, where } from "firebase/firestore";
 import { ProductList } from "../../../components/Products/ProductList";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { db, ItemCollection } from "../../../firebase.config";
+import { useLoadingContext } from "../../../contexts/LoadingContext";
 
 const mockData = [
   { id: "7013ae92-1fe9-41c9-82e2-fd1f5d220fe9", martName: "Thoughtstorm" },
@@ -28,13 +37,84 @@ const mockData = [
 
 export function SelectedMartScreen() {
   const [query, setQuery] = useState("");
+  const { startLoading, endLoading, loading } = useLoadingContext();
+
+  const [pageData, setPageData] = useState({
+    martName: "",
+    items: [],
+  });
 
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useEffect(() => {
+    const getData = async () => {
+      startLoading();
+      const martRef = doc(db, "Mart", route.params.martID);
+
+      const mart = await getDoc(martRef);
+
+      console.log("CBM", mart.data());
+
+      const q = que(ItemCollection, where("MartID", "==", mart.id));
+
+      const querySnapshot = await getDocs(q);
+
+      let items = [];
+
+      await new Promise((resolve, reject) => {
+        querySnapshot.forEach(async (item) => {
+          let company = undefined;
+          let shelve = undefined;
+          let category = undefined;
+          if (item.data().CompanyID) {
+            const companyRef = doc(db, "Company", item.data().CompanyID);
+            company = (await getDoc(companyRef)).data();
+          }
+
+          if (item.data().ShelveID) {
+            const shelveRef = doc(db, "Shelve", item.data().ShelveID);
+
+            shelve = (await getDoc(shelveRef)).data();
+
+            if (shelve?.CategoryID) {
+              const categoryRef = doc(db, "Category", shelve?.CategoryID);
+              category = await getDoc(categoryRef);
+            }
+          }
+
+          items.push({
+            ...item.data(),
+            id: item.id,
+            company: company,
+            category: category,
+          });
+
+          if (querySnapshot.size === items.length) {
+            resolve();
+          }
+        });
+      });
+
+      setPageData({
+        martName: mart.data().MartName,
+        items: items,
+      });
+
+      endLoading();
+    };
+
+    if (route.params) {
+      getData();
+    }
+  }, [route]);
+
+  console.log("CBM", { pageData });
 
   return (
     <Container>
       <View style={styles.circleRight}></View>
-      <TouchableOpacity onPress={() => navigation.navigate("ScannerScreen")}>
+      <TouchableOpacity onPress={() => navigation.navigate("ProductScanner")}>
         <View
           style={{
             width: 50,
@@ -52,10 +132,12 @@ export function SelectedMartScreen() {
         </View>
       </TouchableOpacity>
       <View style={styles.container}>
-        <Text style={styles.heading}>Baig Mart</Text>
+        <Text style={styles.heading}>{pageData.martName}</Text>
         <Text style={styles.subHeading}>
           Select a product from the list or scan a products QR Code.
         </Text>
+
+        {loading && <ActivityIndicator color={COLORS.BLACK} />}
 
         <Input
           placeholder="Search Product ..."
@@ -63,8 +145,16 @@ export function SelectedMartScreen() {
         />
 
         <ProductList
-          products={mockData}
-          onProductPress={() => navigation.navigate("ProductScreen")}
+          products={
+            pageData.items.filter((o) =>
+              Object.keys(o).some((k) =>
+                String(o[k]).toLowerCase().includes(query.toLowerCase())
+              )
+            ) || []
+          }
+          onProductPress={(itemID) => {
+            navigation.navigate("ProductScreen", { itemID });
+          }}
           query={query}
         />
       </View>

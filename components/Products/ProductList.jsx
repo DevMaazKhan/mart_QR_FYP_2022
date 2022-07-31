@@ -12,6 +12,8 @@ import { AntDesign } from "@expo/vector-icons";
 export function ProductList({ products, onProductPress, query }) {
   const scrollY = useRef(new Animated.Value(0)).current;
 
+  console.log("CBM", { products });
+
   return (
     <View
       style={{
@@ -22,11 +24,8 @@ export function ProductList({ products, onProductPress, query }) {
       <Animated.FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={
-          products
-            ? products.filter((data) => data.martName.includes(query))
-            : []
-        }
+        data={products}
+        keyExtractor={(e) => e.id}
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
             inputRange: [-1, 0, 153 * index, 153 * (index + 1)],
@@ -43,7 +42,7 @@ export function ProductList({ products, onProductPress, query }) {
               <TouchableOpacity
                 style={styles.container}
                 activeOpacity={0.7}
-                onPress={onProductPress}
+                onPress={() => onProductPress(item.id)}
               >
                 <View
                   style={{
@@ -55,39 +54,40 @@ export function ProductList({ products, onProductPress, query }) {
                     width: "100%",
                   }}
                 >
-                  <View
-                    style={{
-                      backgroundColor: COLORS.PRIMARY,
-                      paddingHorizontal: 10,
-                      paddingVertical: 2,
-                      borderRadius: 10,
-                    }}
-                  >
-                    <Text style={{ color: COLORS.WHITE, fontSize: 10 }}>
-                      Nestle
-                    </Text>
-                  </View>
+                  {item?.company?.CompanyName && (
+                    <View
+                      style={{
+                        backgroundColor: COLORS.PRIMARY,
+                        paddingHorizontal: 10,
+                        paddingVertical: 2,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: COLORS.WHITE, fontSize: 10 }}>
+                        {item?.company?.CompanyName}
+                      </Text>
+                    </View>
+                  )}
 
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: COLORS.PRIMARY,
-                      paddingHorizontal: 10,
-                      paddingVertical: 2,
-                      borderRadius: 10,
-                    }}
-                  >
-                    <Text style={{ color: COLORS.BLACK, fontSize: 8 }}>
-                      Shampoo
-                    </Text>
-                  </View>
+                  {item.category?.CategoryName && (
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        borderColor: COLORS.PRIMARY,
+                        paddingHorizontal: 10,
+                        paddingVertical: 2,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <Text style={{ color: COLORS.BLACK, fontSize: 8 }}>
+                        {item.category?.CategoryName}
+                      </Text>
+                    </View>
+                  )}
                 </View>
 
-                <Text style={styles.martName}>{item.martName}</Text>
-                <Text style={styles.martDesc}>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero
-                  dolore
-                </Text>
+                <Text style={styles.martName}>{item.ItemName}</Text>
+                <Text style={styles.martDesc}>{item.ItemDesc}</Text>
                 <View
                   style={{
                     display: "flex",
@@ -104,9 +104,32 @@ export function ProductList({ products, onProductPress, query }) {
                   >
                     Price:
                   </Text>
-                  <Text style={{ fontFamily: "BOLD", color: COLORS.BLACK }}>
-                    123 RS
-                  </Text>
+                  {item.DPrice && +item.DPrice > 0 ? (
+                    <>
+                      <Text
+                        style={{
+                          fontFamily: "BOLD",
+                          color: COLORS.ERROR,
+                          textDecorationLine: "line-through",
+                        }}
+                      >
+                        {item.TPrice} RS
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: "BOLD",
+                          color: COLORS.SUCCESS,
+                          marginLeft: 10,
+                        }}
+                      >
+                        {item.DPrice} RS
+                      </Text>
+                    </>
+                  ) : (
+                    <Text style={{ fontFamily: "BOLD", color: COLORS.BLACK }}>
+                      {item.TPrice} RS
+                    </Text>
+                  )}
                 </View>
                 <View
                   style={{

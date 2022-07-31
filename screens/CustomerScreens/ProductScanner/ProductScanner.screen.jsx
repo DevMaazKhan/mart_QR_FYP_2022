@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../constants/Theme";
 import { useNavigation } from "@react-navigation/native";
 
-export function ScannerScreen() {
+export function ProductScanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -29,7 +29,7 @@ export function ScannerScreen() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
 
-    navigation.navigate("SelectedMart", { martID: data });
+    navigation.navigate("ProductScreen", { itemID: data });
   };
 
   if (hasPermission === null) {

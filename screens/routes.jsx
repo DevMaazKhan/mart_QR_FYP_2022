@@ -19,6 +19,7 @@ import { ManageCategoryNavigator } from "./MartScreens/ManageCategory/ManageCate
 import { ManageFloorNavigator } from "./MartScreens/ManageFloors/ManageFloors.navigator";
 import { ManageShelveNavigator } from "./MartScreens/ManageShelves/ManageShelve.navigator";
 import { ManageItemNavigator } from "./MartScreens/ManageItems/ManageItem.navigator";
+import { ProductScanner } from "./CustomerScreens/ProductScanner/ProductScanner.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,12 @@ function Routes() {
         options={{ headerShown: false }}
         name="ScannerScreen"
         component={ScannerScreen}
+      />
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ProductScanner"
+        component={ProductScanner}
       />
 
       <Stack.Screen

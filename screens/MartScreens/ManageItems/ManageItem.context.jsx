@@ -123,6 +123,7 @@ export const ManageItemScreenProvider = ({ children }) => {
           ShelveID: formMethods.getValues("ShelveID") || "",
           CompanyID: formMethods.getValues("CompanyID") || "",
           ID: formMethods.getValues("ID") || "",
+          MartID: user.martID,
         });
 
         setPageState({
