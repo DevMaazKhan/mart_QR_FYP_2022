@@ -1,73 +1,196 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import {
   Container,
   Button,
   Input,
-  Select,
   AvoidKeyboardLayout,
+  Toast,
+  Select,
 } from "../../../../components";
-import { useItemScreenContext } from "../context/ManageItems.context";
-import * as ImagePicker from "expo-image-picker";
+import { useFormContext, Controller } from "react-hook-form";
+import { useItemScreenContext } from "../ManageItem.context";
+import { AntDesign } from "@expo/vector-icons";
+import { COLORS } from "../../../../constants/Theme";
 
 export function AddEditItemScreen() {
-  const { isEditMode } = useItemScreenContext();
+  const formMethods = useFormContext();
 
-  async function openImageLibrary() {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      aspect: [4, 3],
-      quality: 1,
-    });
-  }
+  const { pageMethods, pageState, pageDataSets } = useItemScreenContext();
 
   return (
-    <AvoidKeyboardLayout>
-      <Container>
-        <View style={styles.root}>
-          <Text style={styles.heading}>{isEditMode ? "Edit" : "Add"} Item</Text>
-          <View style={styles.form}>
-            <Input label="Item Name" />
-            <Input label="Item Spec" />
-            <Input label="Item Description" multiLine numberOfLines={4} />
-            <Input label="Price" />
-            <Input label="Discount Price" />
+    <>
+      <Toast
+        msg={pageState.toast.msg}
+        secondMsg={pageState.toast.secondMsg}
+        show={pageState.toast.show}
+        type={pageState.toast.type}
+      />
+      <AvoidKeyboardLayout>
+        <Container>
+          <View style={styles.root}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.heading}>
+                {formMethods.getValues("ID") ? "Edit" : "Add"} Item
+              </Text>
 
-            <Select
-              options={[
-                { firstName: "123", id: "1" },
-                { firstName: "1234", id: "2" },
-              ]}
-              labelKey="firstName"
-              valueKey="id"
-              label="Category"
-              required
-            />
+              {pageState.loading && <ActivityIndicator color={COLORS.BLACK} />}
+            </View>
 
-            <Select
-              options={[
-                { firstName: "123", id: "1" },
-                { firstName: "1234", id: "2" },
-              ]}
-              labelKey="firstName"
-              valueKey="id"
-              label="Company"
-              required
-            />
+            {formMethods.getValues("ID") && (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={pageMethods.deleteItem}
+                style={{
+                  position: "absolute",
+                  bottom: -30,
+                  right: 0,
+                  elevation: 10,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: COLORS.ERROR,
+                    width: 60,
+                    height: 60,
+                    borderRadius: 100,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AntDesign name="delete" size={24} color={COLORS.WHITE} />
+                </View>
+              </TouchableOpacity>
+            )}
 
-            <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} />
+            <View style={styles.form}>
+              <Controller
+                control={formMethods.control}
+                name="ItemName"
+                render={({ field }) => (
+                  <Input
+                    label="Item Name"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                    isError={formMethods.formState.errors["ItemName"]?.message}
+                    errorText={
+                      formMethods.formState.errors["ItemName"]?.message
+                    }
+                  />
+                )}
+              />
 
-            <View style={{ marginVertical: 5 }} />
+              <Controller
+                control={formMethods.control}
+                name="ItemSpec"
+                render={({ field }) => (
+                  <Input
+                    label="Item Spec"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                  />
+                )}
+              />
 
-            <Button
-              title="Add Item"
-              onClick={() => navigation.navigate("ManageItems")}
-              primary
-            />
+              <Controller
+                control={formMethods.control}
+                name="ItemDesc"
+                render={({ field }) => (
+                  <Input
+                    label="Item Description"
+                    multiLine
+                    numberOfLines={4}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                  />
+                )}
+              />
+
+              <Controller
+                control={formMethods.control}
+                name="TPrice"
+                render={({ field }) => (
+                  <Input
+                    label="Price"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                    isError={formMethods.formState.errors["TPrice"]?.message}
+                    errorText={formMethods.formState.errors["TPrice"]?.message}
+                  />
+                )}
+              />
+
+              <Controller
+                control={formMethods.control}
+                name="DPrice"
+                render={({ field }) => (
+                  <Input
+                    label="Discount Price"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                  />
+                )}
+              />
+
+              <Controller
+                control={formMethods.control}
+                name="ShelveID"
+                render={({ field }) => (
+                  <Select
+                    options={[
+                      { CategoryName: "", ID: "" },
+                      ...pageDataSets.shelves,
+                    ]}
+                    labelKey="ShelveName"
+                    valueKey="ID"
+                    label="Shelve"
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                    required
+                  />
+                )}
+              />
+
+              <Controller
+                control={formMethods.control}
+                name="CompanyID"
+                render={({ field }) => (
+                  <Select
+                    options={[
+                      { CategoryName: "", ID: "" },
+                      ...pageDataSets.companies,
+                    ]}
+                    labelKey="CompanyName"
+                    valueKey="ID"
+                    label="Company"
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                    required
+                  />
+                )}
+              />
+
+              {/* <Button title="UPLOAD LOGO" size="sm" onClick={openImageLibrary} /> */}
+
+              <View style={{ marginVertical: 10 }} />
+
+              <Button
+                title={`${formMethods.getValues("ID") ? "Edit" : "Add"} Item`}
+                onClick={pageMethods.save}
+                primary
+              />
+            </View>
           </View>
-        </View>
-      </Container>
-    </AvoidKeyboardLayout>
+        </Container>
+      </AvoidKeyboardLayout>
+    </>
   );
 }
 

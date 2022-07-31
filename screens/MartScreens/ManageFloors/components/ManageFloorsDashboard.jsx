@@ -1,27 +1,31 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
-import { FloorTable } from "./FloorsTable";
-import { useFloorScreenContext } from "../context/ManageFloors.context";
+import { FloorList } from "./FloorsList";
+import { useNavigation } from "@react-navigation/native";
 
-export function ManageFloorsDashboard() {
-  const { goToAddFloorScreen } = useFloorScreenContext();
+export function ManageFloorDashboard() {
+  const navigation = useNavigation();
 
   return (
     <Container>
       <View style={styles.root}>
-        <Text style={styles.heading}>Manage Floors</Text>
-        <Text style={styles.subHeading}>Add/Edit/Delete Floors</Text>
+        <Text style={styles.heading}>Manage Floor</Text>
+        <Text style={styles.subHeading}>Add/Edit/Delete Floor</Text>
 
         <View style={styles.addNewFloorBtn}>
           <Button
             title="Add New Floor"
-            width={150}
+            width={200}
             primary
-            onClick={goToAddFloorScreen}
+            onClick={() => {
+              navigation.navigate("AddEditFloor");
+            }}
           />
         </View>
 
-        <FloorTable />
+        <View style={{ marginVertical: 10 }} />
+
+        <FloorList />
       </View>
     </Container>
   );

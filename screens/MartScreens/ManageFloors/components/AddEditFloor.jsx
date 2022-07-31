@@ -1,53 +1,123 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import {
   Container,
   Button,
   Input,
-  Select,
   AvoidKeyboardLayout,
+  Toast,
 } from "../../../../components";
-import { useFloorScreenContext } from "../context/ManageFloors.context";
-import * as ImagePicker from "expo-image-picker";
+import { useFormContext, Controller } from "react-hook-form";
+import { useFloorScreenContext } from "../ManageFloors.context";
+import { AntDesign } from "@expo/vector-icons";
+import { COLORS } from "../../../../constants/Theme";
 
 export function AddEditFloorScreen() {
-  const { isEditMode } = useFloorScreenContext();
+  const { pageMethods, pageState } = useFloorScreenContext();
 
-  async function openImageLibrary() {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      aspect: [4, 3],
-      quality: 1,
-    });
-  }
+  const formMethods = useFormContext();
 
   return (
-    <AvoidKeyboardLayout>
-      <Container>
-        <View style={styles.root}>
-          <Text style={styles.heading}>
-            {isEditMode ? "Edit" : "Add"} Floor
-          </Text>
-          <View style={styles.form}>
-            <Input label="Floor Name" />
+    <>
+      <Toast
+        msg={pageState.toast.msg}
+        secondMsg={pageState.toast.secondMsg}
+        show={pageState.toast.show}
+        type={pageState.toast.type}
+      />
+      <AvoidKeyboardLayout>
+        <Container>
+          <View style={styles.root}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text style={styles.heading}>
+                {formMethods.getValues("ID") ? "Edit" : "Add"} Floor
+              </Text>
 
-            <Input label="Floor Description" multiLine numberOfLines={4} />
+              {pageState.loading && <ActivityIndicator color={COLORS.BLACK} />}
+            </View>
 
-            <Button
-              title="Add Floor"
-              onClick={() => navigation.navigate("ManageFloors")}
-              primary
-            />
+            {formMethods.getValues("ID") && (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={pageMethods.deleteItem}
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: COLORS.ERROR,
+                    width: 60,
+                    height: 60,
+                    borderRadius: 100,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AntDesign name="delete" size={24} color={COLORS.WHITE} />
+                </View>
+              </TouchableOpacity>
+            )}
+
+            <View style={styles.form}>
+              <Controller
+                control={formMethods.control}
+                name="FloorName"
+                render={({ field }) => (
+                  <Input
+                    label="Floor Name"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                    isError={formMethods.formState.errors["FloorName"]?.message}
+                    errorText={
+                      formMethods.formState.errors["FloorName"]?.message
+                    }
+                  />
+                )}
+              />
+
+              <Controller
+                control={formMethods.control}
+                name="FloorDesc"
+                render={({ field }) => (
+                  <Input
+                    label="Floor Description"
+                    multiLine
+                    numberOfLines={4}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e)}
+                  />
+                )}
+              />
+
+              <View style={{ marginVertical: 10 }} />
+
+              <Button
+                title={`${formMethods.getValues("ID") ? "Edit" : "Add"} Floor`}
+                onClick={pageMethods.save}
+                primary
+              />
+            </View>
           </View>
-        </View>
-      </Container>
-    </AvoidKeyboardLayout>
+        </Container>
+      </AvoidKeyboardLayout>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
     paddingTop: 20,
+    flex: 1,
   },
 
   heading: {

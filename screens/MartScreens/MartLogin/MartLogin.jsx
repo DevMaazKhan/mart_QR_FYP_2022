@@ -74,66 +74,68 @@ function MartLogin({ route }) {
             user.MartEmail,
             values.Password
           );
-        } catch (error) {
-          console.log("CBM", { error });
-        }
 
-        if (user.IsMartUser) {
-          const getMart = query(
-            MartCollection,
-            where("UserID", "==", user.UserID)
-          );
-
-          let mart = [];
-          try {
-            mart = await getDocs(getMart);
-          } catch (error) {
-            console.log("CBM", { error });
-          }
-
-          if (mart.size > 0) {
-            mart = { ...mart.docs[0].data(), id: mart.docs[0].id };
-
-            const getMartInfo = query(
-              MartInfoCollection,
-              where("MartID", "==", mart.id)
+          if (user.IsMartUser) {
+            const getMart = query(
+              MartCollection,
+              where("UserID", "==", user.UserID)
             );
 
-            let martInfo = [];
-
+            let mart = [];
             try {
-              martInfo = await getDocs(getMartInfo);
+              mart = await getDocs(getMart);
             } catch (error) {
               console.log("CBM", { error });
             }
 
-            if (martInfo.size > 0) {
-              martInfo = {
-                ...martInfo.docs[0].data(),
-                id: martInfo.docs[0].id,
-              };
+            if (mart.size > 0) {
+              mart = { ...mart.docs[0].data(), id: mart.docs[0].id };
 
-              loginUser({
-                isMartUser: true,
-                isLoggedIn: true,
-                username: user.MartUsername,
-                userID: user.UserID,
-                martName: mart.MartName,
-                martAddress: mart.MartAddress,
-                martCell: mart.MartCell,
-                martEmail: user.MartEmail,
-                itemsCount: martInfo.ItemsCount,
-                shelvesCount: martInfo.ShelvesCount,
-                floorsCount: martInfo.FloorsCount,
-                companiesCount: martInfo.CompaniesCount,
-                categoriesCount: martInfo.CategoriesCount,
-                martID: mart.id,
-                martInfoID: martInfo.id,
-              });
+              const getMartInfo = query(
+                MartInfoCollection,
+                where("MartID", "==", mart.id)
+              );
+
+              let martInfo = [];
+
+              try {
+                martInfo = await getDocs(getMartInfo);
+              } catch (error) {
+                console.log("CBM", { error });
+              }
+
+              if (martInfo.size > 0) {
+                martInfo = {
+                  ...martInfo.docs[0].data(),
+                  id: martInfo.docs[0].id,
+                };
+
+                loginUser({
+                  isMartUser: true,
+                  isLoggedIn: true,
+                  username: user.MartUsername,
+                  userID: user.UserID,
+                  martName: mart.MartName,
+                  martAddress: mart.MartAddress,
+                  martCell: mart.MartCell,
+                  martEmail: user.MartEmail,
+                  itemsCount: martInfo.ItemsCount,
+                  shelvesCount: martInfo.ShelvesCount,
+                  floorsCount: martInfo.FloorsCount,
+                  companiesCount: martInfo.CompaniesCount,
+                  categoriesCount: martInfo.CategoriesCount,
+                  martID: mart.id,
+                  martInfoID: martInfo.id,
+                });
+              }
             }
-          }
 
-          navigation.navigate("MartDashboard");
+            navigation.navigate("MartDashboard");
+          }
+        } catch (error) {
+          if (error.message === FirebaseErrors.WRONG_PASSWORD) {
+            showToast("Invalid Password", "", ToastTypes.ERROR);
+          }
         }
       } else {
         showToast("Invalid Username", "", ToastTypes.ERROR);

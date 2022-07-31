@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../../../../constants/Theme";
-import { useCategoryScreenContext } from "../ManageCategory.context";
+import { AntDesign } from "@expo/vector-icons";
+import { useItemScreenContext } from "../ManageItem.context";
 
-export function CategoryList() {
+export function ItemList() {
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const { pageState, pageMethods } = useCategoryScreenContext();
+  const { pageState, pageMethods } = useItemScreenContext();
 
   return (
     <View
@@ -24,7 +25,7 @@ export function CategoryList() {
       <Animated.FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={pageState.categories}
+        data={pageState.items}
         keyExtractor={(item) => item.ID}
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
@@ -44,8 +45,7 @@ export function CategoryList() {
                 activeOpacity={0.7}
                 onPress={() => pageMethods.onItemClick(item)}
               >
-                <Text style={styles.name}>{item.CategoryName}</Text>
-                <Text style={styles.desc}>{item.CategoryDesc}</Text>
+                <Text style={styles.ItemName}>{item.ItemName}</Text>
               </TouchableOpacity>
             </Animated.View>
           );
@@ -72,14 +72,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
-  name: {
+  ItemNameHeading: {
+    fontSize: 10,
+    fontFamily: "MEDIUM",
+  },
+  ItemName: {
     marginTop: -7,
     fontSize: 24,
     fontFamily: "BOLD",
     textAlign: "center",
     color: COLORS.PRIMARY,
   },
-  desc: {
+  ItemDesc: {
     fontSize: 10,
     color: COLORS.BLACK,
     marginTop: -10,

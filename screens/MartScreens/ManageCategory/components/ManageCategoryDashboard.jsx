@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
-import { FloorTable } from "./CategoryTable";
-import { useCategoryScreenContext } from "../context/ManageCategory.context";
+import { CategoryList } from "./CategoryTable";
+import { useNavigation } from "@react-navigation/native";
 
 export function ManageCategoryDashboard() {
-  const { goToAddCategoryScreen } = useCategoryScreenContext();
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -17,11 +17,15 @@ export function ManageCategoryDashboard() {
             title="Add New Category"
             width={200}
             primary
-            onClick={goToAddCategoryScreen}
+            onClick={() => {
+              navigation.navigate("AddEditCategory");
+            }}
           />
         </View>
 
-        <FloorTable />
+        <View style={{ marginVertical: 10 }} />
+
+        <CategoryList />
       </View>
     </Container>
   );

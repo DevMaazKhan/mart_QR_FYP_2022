@@ -22,7 +22,7 @@ function MartDashboard() {
           <TouchableOpacity
             style={styles.box}
             activeOpacity={1}
-            onPress={() => navigation.navigate("ManageItems")}
+            onPress={() => navigation.navigate("ManageItemNavigator")}
           >
             <View style={styles.boxInner}>
               <Feather
@@ -38,7 +38,7 @@ function MartDashboard() {
           <TouchableOpacity
             style={styles.box}
             activeOpacity={1}
-            onPress={() => navigation.navigate("ManageShelves")}
+            onPress={() => navigation.navigate("ManageShelveNavigator")}
           >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
@@ -54,7 +54,7 @@ function MartDashboard() {
           <TouchableOpacity
             style={styles.box}
             activeOpacity={1}
-            onPress={() => navigation.navigate("ManageFloors")}
+            onPress={() => navigation.navigate("ManageFloorNavigator")}
           >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
@@ -70,7 +70,7 @@ function MartDashboard() {
           <TouchableOpacity
             style={styles.box}
             activeOpacity={1}
-            onPress={() => navigation.navigate("ManageCategory")}
+            onPress={() => navigation.navigate("ManageCategoryNavigator")}
           >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons
@@ -86,7 +86,7 @@ function MartDashboard() {
           <TouchableOpacity
             style={styles.box}
             activeOpacity={1}
-            onPress={() => navigation.navigate("ManageCompany")}
+            onPress={() => navigation.navigate("ManageCompanyNavigation")}
           >
             <View style={styles.boxInner}>
               <MaterialCommunityIcons

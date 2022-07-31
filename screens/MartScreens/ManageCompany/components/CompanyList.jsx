@@ -8,25 +8,25 @@ import {
 } from "react-native";
 import { COLORS } from "../../../../constants/Theme";
 import { AntDesign } from "@expo/vector-icons";
-import { useCompanyScreenContext } from "../context/ManageCompany.context";
+import { useCompanyScreenContext } from "../ManageCompany.context";
 
 export function CompanyList() {
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const { companies } = useCompanyScreenContext();
+  const { pageState, pageMethods } = useCompanyScreenContext();
 
   return (
     <View
       style={{
         backgroundColor: "transparent",
-        height: 450,
+        height: 600,
       }}
     >
       <Animated.FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={companies}
-        keyExtractor={(item) => item.id}
+        data={pageState.companies}
+        keyExtractor={(item) => item.ID}
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
             inputRange: [-1, 0, 100 * index, 100 * (index + 1)],
@@ -40,9 +40,13 @@ export function CompanyList() {
 
           return (
             <Animated.View style={[{ transform: [{ scale }], opacity }]}>
-              <TouchableOpacity style={styles.container} activeOpacity={0.7}>
+              <TouchableOpacity
+                style={styles.container}
+                activeOpacity={0.7}
+                onPress={() => pageMethods.onItemClick(item)}
+              >
                 <Text style={styles.companyName}>{item.CompanyName}</Text>
-                <Text style={styles.companyDescr}>{item.CompanyDescr}</Text>
+                <Text style={styles.companyDesc}>{item.CompanyDesc}</Text>
               </TouchableOpacity>
             </Animated.View>
           );
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.PRIMARY,
   },
-  companyDescr: {
+  companyDesc: {
     fontSize: 10,
     color: COLORS.BLACK,
     marginTop: -10,

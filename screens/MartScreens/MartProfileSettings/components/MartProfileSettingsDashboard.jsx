@@ -18,6 +18,8 @@ export function MartProfileSettingsDashboard() {
   const { user, setUser } = useUserContext();
   const { startLoading, endLoading, loading } = useLoadingContext();
 
+  console.log("CBM", { user });
+
   async function editProfile(values) {
     startLoading();
 
@@ -47,6 +49,9 @@ export function MartProfileSettingsDashboard() {
       resetForm({
         values: {
           MartName: user.martName,
+          MartAddress: user.martAddress,
+          MartEmail: user.martEmail,
+          MartCell: user.martCell,
         },
       });
     }
@@ -85,20 +90,20 @@ export function MartProfileSettingsDashboard() {
             />
             <Input
               label="Mart Address"
-              value={values.martAddress}
-              onChange={handleChange("martAddress")}
+              value={values.MartAddress}
+              onChange={handleChange("MartAddress")}
               disabled
             />
             <Input
               label="Email"
-              value={values.martEmail}
-              onChange={handleChange("martEmail")}
+              value={values.MartEmail}
+              onChange={handleChange("MartEmail")}
               disabled
             />
             <Input
               label="Mart Cell #"
-              value={values.martCell}
-              onChange={handleChange("martCell")}
+              value={values.MartCell}
+              onChange={handleChange("MartCell")}
               disabled
             />
 

@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
 import { CompanyList } from "./CompanyList";
-import { useCompanyScreenContext } from "../context/ManageCompany.context";
+import { useNavigation } from "@react-navigation/native";
 
 export function ManageCompanyDashboard() {
-  const { goToAddCompanyScreen } = useCompanyScreenContext();
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -17,7 +17,9 @@ export function ManageCompanyDashboard() {
             title="Add New Company"
             width={200}
             primary
-            onClick={goToAddCompanyScreen}
+            onClick={() => {
+              navigation.navigate("AddEditCompany");
+            }}
           />
         </View>
 

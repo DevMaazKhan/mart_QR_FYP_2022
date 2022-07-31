@@ -3,7 +3,15 @@ import { Picker } from "@react-native-picker/picker";
 import { COLORS } from "../../../constants/Theme";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export function Select({ options, valueKey, labelKey, required, label }) {
+export function Select({
+  options,
+  valueKey,
+  labelKey,
+  required,
+  label,
+  value,
+  onChange,
+}) {
   return (
     <View style={styles.inputContainer}>
       <View style={styles.labelContainer}>
@@ -11,7 +19,13 @@ export function Select({ options, valueKey, labelKey, required, label }) {
         {required && <FontAwesome5 name="asterisk" size={5} color="red" />}
       </View>
       <View style={styles.input}>
-        <Picker mode="dropdown">
+        <Picker
+          mode="dropdown"
+          selectedValue={value}
+          onValueChange={(value) => {
+            onChange(value);
+          }}
+        >
           {options.map((el) => (
             <Picker.Item
               key={el[valueKey]}

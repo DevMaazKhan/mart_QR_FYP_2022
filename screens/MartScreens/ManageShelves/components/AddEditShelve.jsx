@@ -11,14 +11,15 @@ import {
   Input,
   AvoidKeyboardLayout,
   Toast,
+  Select,
 } from "../../../../components";
 import { useFormContext, Controller } from "react-hook-form";
-import { useCategoryScreenContext } from "../ManageCategory.context";
+import { useShelveScreenContext } from "../ManageShelve.context";
 import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../../constants/Theme";
 
-export function AddEditCategoryScreen() {
-  const { pageMethods, pageState } = useCategoryScreenContext();
+export function AddEditShelveScreen() {
+  const { pageState, pageMethods, pageDataSets } = useShelveScreenContext();
 
   const formMethods = useFormContext();
 
@@ -37,7 +38,7 @@ export function AddEditCategoryScreen() {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text style={styles.heading}>
-                {formMethods.getValues("ID") ? "Edit" : "Add"} Category
+                {formMethods.getValues("ID") ? "Edit" : "Add"} Shelve
               </Text>
 
               {pageState.loading && <ActivityIndicator color={COLORS.BLACK} />}
@@ -71,17 +72,17 @@ export function AddEditCategoryScreen() {
             <View style={styles.form}>
               <Controller
                 control={formMethods.control}
-                name="CategoryName"
+                name="ShelveName"
                 render={({ field }) => (
                   <Input
-                    label="Category Name"
+                    label="Shelve Name"
                     value={field.value}
                     onChange={(e) => field.onChange(e)}
                     isError={
-                      formMethods.formState.errors["CategoryName"]?.message
+                      formMethods.formState.errors["ShelveName"]?.message
                     }
                     errorText={
-                      formMethods.formState.errors["CategoryName"]?.message
+                      formMethods.formState.errors["ShelveName"]?.message
                     }
                   />
                 )}
@@ -89,24 +90,44 @@ export function AddEditCategoryScreen() {
 
               <Controller
                 control={formMethods.control}
-                name="CategoryDesc"
+                name="FloorID"
                 render={({ field }) => (
-                  <Input
-                    label="Category Description"
-                    multiLine
-                    numberOfLines={4}
+                  <Select
+                    options={[
+                      { CategoryName: "", ID: "" },
+                      ...pageDataSets.floors,
+                    ]}
+                    labelKey="FloorName"
+                    valueKey="ID"
+                    label="Floor"
                     value={field.value}
-                    onChange={(e) => field.onChange(e)}
+                    onChange={(value) => field.onChange(value)}
+                    required
                   />
                 )}
               />
 
-              <View style={{ marginVertical: 10 }} />
+              <Controller
+                control={formMethods.control}
+                name="CategoryID"
+                render={({ field }) => (
+                  <Select
+                    options={[
+                      { CategoryName: "", ID: "" },
+                      ...pageDataSets.categories,
+                    ]}
+                    labelKey="CategoryName"
+                    valueKey="ID"
+                    label="Category"
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                    required
+                  />
+                )}
+              />
 
               <Button
-                title={`${
-                  formMethods.getValues("ID") ? "Edit" : "Add"
-                } Category`}
+                title={`${formMethods.getValues("ID") ? "Edit" : "Add"} Shelve`}
                 onClick={pageMethods.save}
                 primary
               />

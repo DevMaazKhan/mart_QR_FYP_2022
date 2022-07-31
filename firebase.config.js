@@ -22,3 +22,4 @@ export const ItemCollection = collection(db, "Item");
 export const ShelveCollection = collection(db, "Shelve");
 export const FloorCollection = collection(db, "Floor");
 export const CompanyCollection = collection(db, "Company");
+export const CategoryCollection = collection(db, "Category");

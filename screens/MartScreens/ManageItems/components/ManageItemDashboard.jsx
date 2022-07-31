@@ -1,27 +1,31 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Container, Button } from "../../../../components";
-import { ItemsTable } from "./ItemsTable";
-import { useItemScreenContext } from "../context/ManageItems.context";
+import { ItemList } from "./ItemList";
+import { useNavigation } from "@react-navigation/native";
+import { useItemScreenContext } from "../ManageItem.context";
 
-export function ManageItemsDashboard() {
-  const { goToAddItemScreen } = useItemScreenContext();
+export function ManageItemDashboard() {
+  const { pageMethods } = useItemScreenContext();
+  const navigation = useNavigation();
 
   return (
     <Container>
       <View style={styles.root}>
-        <Text style={styles.heading}>Manage Items</Text>
-        <Text style={styles.subHeading}>Add/Edit/Delete Items</Text>
+        <Text style={styles.heading}>Manage Item</Text>
+        <Text style={styles.subHeading}>Add/Edit/Delete Item</Text>
 
-        <View style={styles.addNewItemBtn}>
+        <View style={styles.addNewFloorBtn}>
           <Button
             title="Add New Item"
-            width={150}
+            width={200}
             primary
-            onClick={goToAddItemScreen}
+            onClick={pageMethods.onNewItemAdd}
           />
         </View>
 
-        <ItemsTable />
+        <View style={{ marginVertical: 10 }} />
+
+        <ItemList />
       </View>
     </Container>
   );
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
 
-  addNewItemBtn: {
+  addNewFloorBtn: {
     display: "flex",
     alignItems: "flex-end",
     marginTop: 10,

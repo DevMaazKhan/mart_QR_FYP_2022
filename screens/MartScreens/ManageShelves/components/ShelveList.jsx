@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../../../../constants/Theme";
-import { useCategoryScreenContext } from "../ManageCategory.context";
+import { useShelveScreenContext } from "../ManageShelve.context";
 
-export function CategoryList() {
+export function ShelveList() {
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const { pageState, pageMethods } = useCategoryScreenContext();
+  const { pageState, pageMethods } = useShelveScreenContext();
 
   return (
     <View
@@ -24,7 +24,7 @@ export function CategoryList() {
       <Animated.FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={pageState.categories}
+        data={pageState.shelves}
         keyExtractor={(item) => item.ID}
         renderItem={({ item, index }) => {
           const scale = scrollY.interpolate({
@@ -44,8 +44,7 @@ export function CategoryList() {
                 activeOpacity={0.7}
                 onPress={() => pageMethods.onItemClick(item)}
               >
-                <Text style={styles.name}>{item.CategoryName}</Text>
-                <Text style={styles.desc}>{item.CategoryDesc}</Text>
+                <Text style={styles.ShelveName}>{item.ShelveName}</Text>
               </TouchableOpacity>
             </Animated.View>
           );
@@ -72,14 +71,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
-  name: {
+  ShelveNameHeading: {
+    fontSize: 10,
+    fontFamily: "MEDIUM",
+  },
+  ShelveName: {
     marginTop: -7,
     fontSize: 24,
     fontFamily: "BOLD",
     textAlign: "center",
     color: COLORS.PRIMARY,
   },
-  desc: {
+  ShelveDesc: {
     fontSize: 10,
     color: COLORS.BLACK,
     marginTop: -10,

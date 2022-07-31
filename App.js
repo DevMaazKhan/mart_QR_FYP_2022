@@ -11,7 +11,6 @@ LogBox.ignoreLogs(["Setting a timer"]);
 
 export default function App() {
   const [loaded] = useFonts(FONTS);
-  const [hasMediaPermission, setHasMediaPermission] = useState();
 
   if (!loaded) return <Text>Loading...</Text>;
 

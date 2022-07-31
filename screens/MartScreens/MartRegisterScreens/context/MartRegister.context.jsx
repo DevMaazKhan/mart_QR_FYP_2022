@@ -38,6 +38,8 @@ export function MartRegisterContextProvider({ children }) {
         values.Password
       );
 
+      console.log("CBM", { userCredentials });
+
       await addDoc(UserCollection, {
         UserID: userCredentials.user.uid,
         IsMartUser: true,
@@ -60,6 +62,9 @@ export function MartRegisterContextProvider({ children }) {
         CompaniesCount: 0,
         MartID: mart.id,
       });
+
+      actions.resetForm(defaultValues);
+      navigation.navigate("MartLogin", { registered: true });
     } catch (error) {
       if (error.message === FirebaseErrors.EMAIL_IN_USE) {
         showToast(
@@ -68,9 +73,9 @@ export function MartRegisterContextProvider({ children }) {
           ToastTypes.ERROR
         );
       }
+
+      console.log("CBM", { error });
     } finally {
-      actions.resetForm(defaultValues);
-      navigation.navigate("MartLogin", { registered: true });
       endLoading();
     }
   }
