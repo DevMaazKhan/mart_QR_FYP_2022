@@ -194,7 +194,7 @@ export const ManageShelveScreenProvider = ({ children }) => {
     const getData = async () => {
       startLoading();
       const floorQuery = query(
-        ShelveCollection,
+        FloorCollection,
         where("MartID", "==", user.martID)
       );
       const shelveQuery = query(
