@@ -8,7 +8,15 @@ import {
   ShelveCollection,
   CompanyCollection,
 } from "../../../firebase.config";
-import { addDoc, doc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -194,9 +202,24 @@ export const ManageItemScreenProvider = ({ children }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const items = await getDocs(ItemCollection);
-      const shelves = await getDocs(ShelveCollection);
-      const companies = await getDocs(CompanyCollection);
+      const itemQuery = query(
+        ItemCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const items = await getDocs(itemQuery);
+
+      const shelveQuery = query(
+        ShelveCollection,
+        where("MartID", "==", user.martID)
+      );
+      const companiesQuery = query(
+        CompanyCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const shelves = await getDocs(shelveQuery);
+      const companies = await getDocs(companiesQuery);
 
       setPageState({
         ...pageState,

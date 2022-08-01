@@ -8,7 +8,15 @@ import {
   FloorCollection,
   CategoryCollection,
 } from "../../../firebase.config";
-import { addDoc, doc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -113,6 +121,7 @@ export const ManageShelveScreenProvider = ({ children }) => {
           FloorID: formMethods.getValues("FloorID") || "",
           CategoryID: formMethods.getValues("CategoryID") || "",
           ID: formMethods.getValues("ID") || "",
+          MartID: user.martID,
         });
 
         setPageState({
@@ -184,9 +193,22 @@ export const ManageShelveScreenProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       startLoading();
-      const shelves = await getDocs(ShelveCollection);
-      const floors = await getDocs(FloorCollection);
-      const categories = await getDocs(CategoryCollection);
+      const floorQuery = query(
+        ShelveCollection,
+        where("MartID", "==", user.martID)
+      );
+      const shelveQuery = query(
+        ShelveCollection,
+        where("MartID", "==", user.martID)
+      );
+      const categoryQuery = query(
+        CategoryCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const shelves = await getDocs(shelveQuery);
+      const floors = await getDocs(floorQuery);
+      const categories = await getDocs(categoryQuery);
 
       setPageState({
         ...pageState,

@@ -14,6 +14,8 @@ import {
   updateDoc,
   deleteDoc,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -97,6 +99,7 @@ export const ManageCompanyScreenProvider = ({ children }) => {
         const comp = await addDoc(CompanyCollection, {
           ...formMethods.getValues(),
           CompanyDesc: formMethods.getValues("CompanyDesc") || "",
+          MartID: user.martID,
         });
 
         setPageState({
@@ -168,7 +171,13 @@ export const ManageCompanyScreenProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       startLoading();
-      const companies = await getDocs(CompanyCollection);
+
+      const companyQuery = query(
+        CompanyCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const companies = await getDocs(companyQuery);
 
       setPageState({
         ...pageState,

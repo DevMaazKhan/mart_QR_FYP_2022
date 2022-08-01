@@ -3,7 +3,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useLoadingContext } from "../../../contexts/LoadingContext";
 import { useUserContext } from "../../../contexts/UserContext";
 import { CategoryCollection, db } from "../../../firebase.config";
-import { addDoc, doc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -84,6 +92,7 @@ export const ManageCategoryScreenProvider = ({ children }) => {
         const comp = await addDoc(CategoryCollection, {
           ...formMethods.getValues(),
           CategoryDesc: formMethods.getValues("CategoryDesc") || "",
+          MartID: user.martID,
         });
 
         setPageState({
@@ -154,7 +163,12 @@ export const ManageCategoryScreenProvider = ({ children }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const categories = await getDocs(CategoryCollection);
+      const categoryQuery = query(
+        CategoryCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const categories = await getDocs(categoryQuery);
 
       setPageState({
         ...pageState,

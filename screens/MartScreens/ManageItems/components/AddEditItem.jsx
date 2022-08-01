@@ -177,34 +177,31 @@ export function AddEditItemScreen() {
                 )}
               </View>
 
-              {pageState.loading && <ActivityIndicator color={COLORS.BLACK} />}
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {pageState.loading && (
+                  <ActivityIndicator color={COLORS.BLACK} />
+                )}
+                {formMethods.getValues("ID") && (
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={pageMethods.deleteItem}
+                    style={{
+                      marginLeft: 10,
+                    }}
+                  >
+                    <View
+                      style={{
+                        borderRadius: 100,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <AntDesign name="delete" size={24} color={COLORS.ERROR} />
+                    </View>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
-
-            {formMethods.getValues("ID") && (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={pageMethods.deleteItem}
-                style={{
-                  position: "absolute",
-                  bottom: -30,
-                  right: 0,
-                  elevation: 10,
-                }}
-              >
-                <View
-                  style={{
-                    backgroundColor: COLORS.ERROR,
-                    width: 60,
-                    height: 60,
-                    borderRadius: 100,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <AntDesign name="delete" size={24} color={COLORS.WHITE} />
-                </View>
-              </TouchableOpacity>
-            )}
 
             <View style={styles.form}>
               <Controller
@@ -281,7 +278,7 @@ export function AddEditItemScreen() {
                 render={({ field }) => (
                   <Select
                     options={[
-                      { CategoryName: "", ID: "" },
+                      { ShelveName: "", ID: "" },
                       ...pageDataSets.shelves,
                     ]}
                     labelKey="ShelveName"
@@ -300,7 +297,7 @@ export function AddEditItemScreen() {
                 render={({ field }) => (
                   <Select
                     options={[
-                      { CategoryName: "", ID: "" },
+                      { CompanyName: "", ID: "" },
                       ...pageDataSets.companies,
                     ]}
                     labelKey="CompanyName"

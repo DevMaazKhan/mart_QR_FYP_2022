@@ -3,7 +3,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useLoadingContext } from "../../../contexts/LoadingContext";
 import { useUserContext } from "../../../contexts/UserContext";
 import { FloorCollection, db } from "../../../firebase.config";
-import { addDoc, doc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -84,6 +92,7 @@ export const ManageFloorScreenProvider = ({ children }) => {
         const comp = await addDoc(FloorCollection, {
           ...formMethods.getValues(),
           FloorDesc: formMethods.getValues("FloorDesc") || "",
+          MartID: user.martID,
         });
 
         setPageState({
@@ -154,7 +163,12 @@ export const ManageFloorScreenProvider = ({ children }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const floors = await getDocs(FloorCollection);
+      const floorQuery = query(
+        FloorCollection,
+        where("MartID", "==", user.martID)
+      );
+
+      const floors = await getDocs(floorQuery);
 
       setPageState({
         ...pageState,

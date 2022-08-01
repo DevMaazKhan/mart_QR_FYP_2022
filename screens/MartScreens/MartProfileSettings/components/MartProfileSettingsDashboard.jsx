@@ -18,8 +18,6 @@ export function MartProfileSettingsDashboard() {
   const { user, setUser } = useUserContext();
   const { startLoading, endLoading, loading } = useLoadingContext();
 
-  console.log("CBM", { user });
-
   async function editProfile(values) {
     startLoading();
 
@@ -28,7 +26,14 @@ export function MartProfileSettingsDashboard() {
     try {
       await updateDoc(collectionById, values);
 
-      setUser((prev) => ({ ...prev, martName: values.MartName }));
+      setUser((prev) => ({
+        ...prev,
+        martCell: values.MartCell,
+        martName: values.MartName,
+        martAddress: values.MartAddress,
+        martEmail: values.MartEmail,
+        ...values,
+      }));
     } catch (error) {
       console.log("CBM", { error });
     }
@@ -92,7 +97,6 @@ export function MartProfileSettingsDashboard() {
               label="Mart Address"
               value={values.MartAddress}
               onChange={handleChange("MartAddress")}
-              disabled
             />
             <Input
               label="Email"
@@ -104,7 +108,6 @@ export function MartProfileSettingsDashboard() {
               label="Mart Cell #"
               value={values.MartCell}
               onChange={handleChange("MartCell")}
-              disabled
             />
 
             <View style={styles.buttons}>

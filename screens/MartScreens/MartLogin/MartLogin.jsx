@@ -118,7 +118,7 @@ function MartLogin({ route }) {
                   martName: mart.MartName,
                   martAddress: mart.MartAddress,
                   martCell: mart.MartCell,
-                  martEmail: user.MartEmail,
+                  martEmail: mart.MartEmail,
                   itemsCount: martInfo.ItemsCount,
                   shelvesCount: martInfo.ShelvesCount,
                   floorsCount: martInfo.FloorsCount,
